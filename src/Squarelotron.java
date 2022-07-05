@@ -21,20 +21,19 @@ public class Squarelotron {
 
     public static void main(String[] args) {
         Squarelotron squarelotron = new Squarelotron(4);
-        squarelotron.printSquarelotron();
+        squarelotron.printSquarelotron(squarelotron.grid);
     }
 
-    public int[][] getSquarelotronArray() {
+    public int[][] upsideDownFlip(int ring) {
         return this.grid;
     }
 
-    public void upsideDownFlip(int ring) {
+    public int[][] mainDiagonalFlip(int ring) {
+        return this.grid;
     }
 
-    public void mainDiagonalFlip(int ring) {
-    }
-
-    public void rotateRight(int numberOfTurns) {
+    public int[][] rotateRight(int numberOfTurns) {
+        return this.grid;
     }
 
     /*
@@ -43,11 +42,11 @@ public class Squarelotron {
     /**
      * Nice printing of squarelotron in console
      */
-    public void printSquarelotron() {
-        for (int row = 0; row < this.grid.length; row++) {
+    public void printSquarelotron(int[][] grid) {
+        for (int row = 0; row < grid.length; row++) {
             System.out.println();
-            for (int col = 0; col < this.grid.length; col++) {
-                System.out.print(padRight(Integer.toString(this.grid[row][col]), 3));
+            for (int col = 0; col < grid.length; col++) {
+                System.out.print(padRight(Integer.toString(grid[row][col]), 3));
             }
         }
     }
