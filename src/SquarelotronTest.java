@@ -16,7 +16,7 @@ class SquarelotronTest {
         int[][] res_grid_outer = squarelotron.upsideDownFlip(1); // flip outer ring
         assertArrayEquals(res_grid_outer[0], new int[]{21, 22, 23, 24, 25});  // outer ring flips, bottom row on top
         assertArrayEquals(res_grid_outer[4], new int[]{1, 2, 3, 4, 5});  // outer ring flips, bottom row on top
-        assertArrayEquals(res_grid_outer[1], new int[]{16, 7, 8, 9, 21});  // inner ring doesn't flip, checking second row
+        assertArrayEquals(res_grid_outer[1], new int[]{16, 7, 8, 9, 20});  // inner ring doesn't flip, checking second row
         assertEquals(13, res_grid_outer[2][2]); // middle doesn't move
 
         // Flip the second ring (starting from reset grid)
