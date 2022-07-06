@@ -32,7 +32,7 @@ class SquarelotronTest {
 
         // Outer ring diagonal flip
         int[][] res_grid_outer = squarelotron.mainDiagonalFlip(1); // flip outer ring
-        assertArrayEquals(res_grid_outer[0], new int[]{1, 6, 11, 15, 25});
+        assertArrayEquals(res_grid_outer[0], new int[]{1, 6, 11, 16, 21});
         assertEquals(13, res_grid_outer[2][2]); // middle doesn't move
         assertArrayEquals(res_grid_outer[1], new int[]{2, 7, 8, 9, 22});  // checking second row had 2nd ring flipped
 
