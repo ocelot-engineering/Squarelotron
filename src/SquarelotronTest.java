@@ -10,7 +10,7 @@ class SquarelotronTest {
 
     @org.junit.jupiter.api.Test
     void upsideDownFlip() {
-        assertEquals(5, squarelotron.grid.length); // assumes 5x5 as below tests are setup for 5x5
+        assertEquals(5, squarelotron.size); // assumes 5x5 as below tests are setup for 5x5
 
         // Outer ring flip
         int[][] res_grid_outer = squarelotron.upsideDownFlip(1); // flip outer ring
@@ -28,7 +28,7 @@ class SquarelotronTest {
 
     @org.junit.jupiter.api.Test
     void mainDiagonalFlip() {
-        assertEquals(5, squarelotron.grid.length); // assumes 5x5 as below tests are setup for 5x5
+        assertEquals(5, squarelotron.size); // assumes 5x5 as below tests are setup for 5x5
 
         // Outer ring diagonal flip
         int[][] res_grid_outer = squarelotron.mainDiagonalFlip(1); // flip outer ring
@@ -45,7 +45,7 @@ class SquarelotronTest {
 
     @org.junit.jupiter.api.Test
     void rotateRight() {
-        assertEquals(5, squarelotron.grid.length); // assumes 5x5 as below tests are setup for 5x5
+        assertEquals(5, squarelotron.size); // assumes 5x5 as below tests are setup for 5x5
 
         // One turn
         int[][] res_grid_oneturn = squarelotron.rotateRight(1); // rotate entire square by 90 degrees

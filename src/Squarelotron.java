@@ -6,16 +6,18 @@ import java.util.Arrays;
  */
 public class Squarelotron {
 
-    int[][] grid;
+    int[][] squarelotron;
+    int size;
 
     public Squarelotron(int n) {
-        this.grid = new int[n][n]; // create empty grid
+        this.squarelotron = new int[n][n]; // create empty grid
+        this.size = n;
 
         // inefficient nested for loop to build squarelotron
         // fills from 1:n squared, in order.
         for (int row = 0; row < n; row++) { // row loop
             for (int col = 0; col < n; col++) { // col value loop
-                this.grid[row][col] = (row * n) + col + 1;
+                this.squarelotron[row][col] = (row * n) + col + 1;
             }
         }
 
@@ -43,7 +45,7 @@ public class Squarelotron {
      */
     public static void main(String[] args) {
         Squarelotron squarelotron = new Squarelotron(5);
-        squarelotron.printSquarelotron(squarelotron.grid);
+        squarelotron.printSquarelotron(squarelotron.squarelotron);
         squarelotron.printSquarelotron(squarelotron.upsideDownFlip(1));
         squarelotron.printSquarelotron(squarelotron.upsideDownFlip(2));
         squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(1));
@@ -72,13 +74,13 @@ public class Squarelotron {
      * Loops through all elements in row (defined by rowIdxToUpdateTo) and updates the values
      */
     public int[][] updateTopBotOfRingForUpsideDownFlip(int ring, int[][] outGrid, int rowIdxToUpdateTo, int rowIdxToUpdateFrom) {
-        int size = this.grid.length;
+        int size = this.size;
         int topAndLeftIdx = ring - 1; // index is for top row of ring and left col of ring
         int botAndRightIdx = size - ring; // index if for bottom of ring and right side col of ring
 
         for (int col = 0; col < size; col++) {
             if (col >= topAndLeftIdx && col <= botAndRightIdx) { // if between these, update as it's running along top or bottom of ring
-                outGrid[rowIdxToUpdateTo][col] = this.grid[rowIdxToUpdateFrom][col];
+                outGrid[rowIdxToUpdateTo][col] = this.squarelotron[rowIdxToUpdateFrom][col];
             }
         }
         return outGrid;
@@ -101,10 +103,10 @@ public class Squarelotron {
         // TODO better checks for possible operations
 
         // Setup indices and deep copy the grid
-        int size = this.grid.length;
+        int size = this.size;
         int topRowIdx = ring - 1;
         int botRowIdx = size - ring;
-        int[][] outGrid = deepCopyGrid(this.grid);
+        int[][] outGrid = deepCopyGrid(this.squarelotron);
 
         // Top row of ring
         outGrid = updateTopBotOfRingForUpsideDownFlip(ring, outGrid, topRowIdx, botRowIdx); // rowIdxToUpdateTo: topRowIdx, rowIdxToUpdateFrom: botRowIdx
@@ -118,7 +120,7 @@ public class Squarelotron {
             for (int col = 0; col < size; col++) {
                 colRingEdge = col == ring - 1 || col == size - ring; // checks if col index is on a ring edge
                 if (colRingEdge) {
-                    outGrid[row][col] = this.grid[size - row - 1][col];
+                    outGrid[row][col] = this.squarelotron[size - row - 1][col];
                 }
             }
         }
@@ -137,10 +139,10 @@ public class Squarelotron {
      */
     public int[][] mainDiagonalFlip(int ring) {
         // Setup indices and deep copy the grid
-        int size = this.grid.length;
+        int size = this.size;
         int topAndLeftIdx = ring - 1; // index is for top row of ring and left col of ring
         int botAndRightIdx = size - ring; // index if for bottom of ring and right side col of ring
-        int[][] outGrid = deepCopyGrid(this.grid);
+        int[][] outGrid = deepCopyGrid(this.squarelotron);
 
         // Just as easy to read these loops rather tha build a method than can be reused, which was done in upsideDownFlip.
         // It's easier to read, but more to maintain. Since this will never be worked on again after I submit the assignment
@@ -149,14 +151,14 @@ public class Squarelotron {
         // Top of ring
         for (int col = 0; col < size; col++) {
             if (col >= topAndLeftIdx && col <= botAndRightIdx) { // if between these, update as it's running along top of ring
-                outGrid[topAndLeftIdx][col] = this.grid[col][topAndLeftIdx];
+                outGrid[topAndLeftIdx][col] = this.squarelotron[col][topAndLeftIdx];
             }
         }
 
         // Bottom of ring
         for (int col = 0; col < size; col++) {
             if (col >= topAndLeftIdx && col <= botAndRightIdx) { // if between these, update as it's running along top of ring
-                outGrid[botAndRightIdx][col] = this.grid[col][botAndRightIdx];
+                outGrid[botAndRightIdx][col] = this.squarelotron[col][botAndRightIdx];
             }
         }
 
@@ -166,7 +168,7 @@ public class Squarelotron {
             for (int col = 0; col < size; col++) {
                 colRingEdge = col == ring - 1 || col == size - ring; // checks if col index is on a ring edge
                 if (colRingEdge) {
-                    outGrid[row][col] = this.grid[col][row]; // notice the switch of row and col
+                    outGrid[row][col] = this.squarelotron[col][row]; // notice the switch of row and col
                 }
             }
         }
@@ -175,8 +177,8 @@ public class Squarelotron {
 
     public int[][] rotateRight(int numberOfTurns) {
         // Setup indices and deep copy the grid
-        int size = this.grid.length;
-        int[][] outGrid = deepCopyGrid(this.grid);
+        int size = this.size;
+        int[][] outGrid = deepCopyGrid(this.squarelotron);
         int[][] stagingGrid; //
 
         // Can do another loop which would work given how little compute is needed to process this.
