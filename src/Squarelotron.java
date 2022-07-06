@@ -189,11 +189,16 @@ public class Squarelotron {
         // Can do another loop which would work given how little compute is needed to process this.
         // Having a nested loop with 3 layers is not very elegant could do a solution with some trig functions that switch
         // things on and off but would be a bit fiddly and make it difficult to read.
-        for (int turn = 1; turn <= numberOfTurns; turn++) {
+        for (int turn = 1; turn <= Math.abs(numberOfTurns); turn++) {
             stagingGrid = deepCopyGrid(outGrid);
             for (int row = 0; row < size; row++) {
                 for (int col = 0; col < size; col++) {
-                    outGrid[row][col] = stagingGrid[size - col - 1][row];
+                    if(numberOfTurns >= 0) { // allow for reverse turn
+                        outGrid[row][col] = stagingGrid[size - col - 1][row];
+                    } else {
+                        outGrid[row][col] = stagingGrid[col][size - row - 1];
+                    }
+
                 }
             }
         }
