@@ -45,13 +45,13 @@ public class Squarelotron {
      */
     public static void main(String[] args) {
         Squarelotron squarelotron = new Squarelotron(5);
-        squarelotron.printSquarelotron(squarelotron.squarelotron);
-        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(1));
-        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(2));
-        squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(1));
-        squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(2));
-        squarelotron.printSquarelotron(squarelotron.rotateRight(1));
-        squarelotron.printSquarelotron(squarelotron.rotateRight(2));
+//        squarelotron.printSquarelotron(squarelotron.squarelotron);
+//        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(1));
+//        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(2));
+//        squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(1));
+//        squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(2));
+//        squarelotron.printSquarelotron(squarelotron.rotateRight(1));
+//        squarelotron.printSquarelotron(squarelotron.rotateRight(2));
     }
 
     /**
@@ -95,7 +95,7 @@ public class Squarelotron {
      * ___
      * ...
      */
-    public int[][] upsideDownFlip(int ring) {
+    public Squarelotron upsideDownFlip(int ring) {
         // top and bottom row change position
         // all other rows have first and last value swapped
         // can always assume it is a square
@@ -125,7 +125,9 @@ public class Squarelotron {
             }
         }
 
-        return outGrid;
+        Squarelotron newSquarelotron = new Squarelotron(size);
+        newSquarelotron.squarelotron = outGrid;
+        return newSquarelotron;
     }
 
 
@@ -137,7 +139,7 @@ public class Squarelotron {
      * .\.
      * ..\
      */
-    public int[][] mainDiagonalFlip(int ring) {
+    public Squarelotron mainDiagonalFlip(int ring) {
         // Setup indices and deep copy the grid
         int size = this.size;
         int topAndLeftIdx = ring - 1; // index is for top row of ring and left col of ring
@@ -172,14 +174,17 @@ public class Squarelotron {
                 }
             }
         }
-        return outGrid;
+
+        Squarelotron newSquarelotron = new Squarelotron(size);
+        newSquarelotron.squarelotron = outGrid;
+        return newSquarelotron;
     }
 
-    public int[][] rotateRight(int numberOfTurns) {
+    public void rotateRight(int numberOfTurns) {
         // Setup indices and deep copy the grid
         int size = this.size;
         int[][] outGrid = deepCopyGrid(this.squarelotron);
-        int[][] stagingGrid; //
+        int[][] stagingGrid;
 
         // Can do another loop which would work given how little compute is needed to process this.
         // Having a nested loop with 3 layers is not very elegant could do a solution with some trig functions that switch
@@ -192,7 +197,7 @@ public class Squarelotron {
                 }
             }
         }
-        return outGrid;
+        this.squarelotron = outGrid;
     }
 
     /**
