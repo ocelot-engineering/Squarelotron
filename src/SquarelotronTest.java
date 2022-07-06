@@ -55,8 +55,8 @@ class SquarelotronTest {
 
         // Two turns
         int[][] res_grid_twoturn = squarelotron.rotateRight(2); // rotate entire square by 180 degrees
-        assertArrayEquals(res_grid_twoturn[0], new int[]{21, 22, 23, 24, 25});  // top row be original bottom row
+        assertArrayEquals(res_grid_twoturn[0], new int[]{25, 24, 23, 22, 21});  // top row be original bottom row
         assertEquals(13, res_grid_twoturn[2][2]); // middle doesn't change
-        assertArrayEquals(res_grid_twoturn[3], new int[]{6, 6, 7, 9, 10});  // second bottom row should be original second row
+        assertArrayEquals(res_grid_twoturn[3], new int[]{10, 9, 8, 7, 6});  // second bottom row should be original second row
     }
 }

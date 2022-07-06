@@ -44,21 +44,25 @@ public class Squarelotron {
     public static void main(String[] args) {
         Squarelotron squarelotron = new Squarelotron(5);
         squarelotron.printSquarelotron(squarelotron.grid);
-//        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(1));
-//        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(2));
+        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(1));
+        squarelotron.printSquarelotron(squarelotron.upsideDownFlip(2));
         squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(1));
         squarelotron.printSquarelotron(squarelotron.mainDiagonalFlip(2));
+        squarelotron.printSquarelotron(squarelotron.rotateRight(1));
+        squarelotron.printSquarelotron(squarelotron.rotateRight(2));
     }
 
     /**
      * Generates a deep copy of the original grid when called.
+     * Usually copies the original grid, can can copy any grid passed to it
+     * This is useful for copying a staging grid
      */
-    public int[][] deepCopyGrid() {
+    public int[][] deepCopyGrid(int[][] grid) {
         // Deep copy array - need to iterate over each row
-        int size = this.grid.length;
+        int size = grid.length;
         int[][] outGrid = new int[size][size];
         for (int row = 0; row < size; row++) {
-            outGrid[row] = Arrays.copyOf(this.grid[row], size);
+            outGrid[row] = Arrays.copyOf(grid[row], size);
         }
         return outGrid;
     }
@@ -100,7 +104,7 @@ public class Squarelotron {
         int size = this.grid.length;
         int topRowIdx = ring - 1;
         int botRowIdx = size - ring;
-        int[][] outGrid = deepCopyGrid();
+        int[][] outGrid = deepCopyGrid(this.grid);
 
         // Top row of ring
         outGrid = updateTopBotOfRingForUpsideDownFlip(ring, outGrid, topRowIdx, botRowIdx); // rowIdxToUpdateTo: topRowIdx, rowIdxToUpdateFrom: botRowIdx
@@ -136,7 +140,7 @@ public class Squarelotron {
         int size = this.grid.length;
         int topAndLeftIdx = ring - 1; // index is for top row of ring and left col of ring
         int botAndRightIdx = size - ring; // index if for bottom of ring and right side col of ring
-        int[][] outGrid = deepCopyGrid();
+        int[][] outGrid = deepCopyGrid(this.grid);
 
         // Just as easy to read these loops rather tha build a method than can be reused, which was done in upsideDownFlip.
         // It's easier to read, but more to maintain. Since this will never be worked on again after I submit the assignment
@@ -170,7 +174,23 @@ public class Squarelotron {
     }
 
     public int[][] rotateRight(int numberOfTurns) {
-        return this.grid;
+        // Setup indices and deep copy the grid
+        int size = this.grid.length;
+        int[][] outGrid = deepCopyGrid(this.grid);
+        int[][] stagingGrid; //
+
+        // Can do another loop which would work given how little compute is needed to process this.
+        // Having a nested loop with 3 layers is not very elegant could do a solution with some trig functions that switch
+        // things on and off but would be a bit fiddly and make it difficult to read.
+        for (int turn = 1; turn <= numberOfTurns; turn++) {
+            stagingGrid = deepCopyGrid(outGrid);
+            for (int row = 0; row < size; row++) {
+                for (int col = 0; col < size; col++) {
+                    outGrid[row][col] = stagingGrid[size - col - 1][row];
+                }
+            }
+        }
+        return outGrid;
     }
 
     /**
